@@ -16,7 +16,7 @@ func _draw():
 	draw_circle(Screen_Size/2.0,Dot_Size,Dot_Colour)
 
 func Set_InteractionLabel():
+	var texture = InteractionViewport.get_texture()
 	for MessageLabel in get_tree().get_nodes_in_group('3DInteractableMessage'):
-		var texture = InteractionViewport.get_texture()
 		MessageLabel.texture = texture
 

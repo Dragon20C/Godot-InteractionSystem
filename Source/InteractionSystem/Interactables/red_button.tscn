@@ -144,7 +144,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cgs73"]
-size = Vector3(1.5, 1.5, 1)
+size = Vector3(1.5, 1.5, 2)
 
 [node name="RedButton" type="Area3D" groups=["Interactable"]]
 script = ExtResource("1_ya6or")

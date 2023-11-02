@@ -152,6 +152,7 @@ states/Open/node = SubResource("AnimationNodeAnimation_7hpcj")
 states/Open/position = Vector2(416, 76)
 states/Start/position = Vector2(189, 100)
 transitions = ["Close", "Open", SubResource("AnimationNodeStateMachineTransition_md3pm"), "Open", "Close", SubResource("AnimationNodeStateMachineTransition_2h6x2")]
+graph_offset = Vector2(-148, -16)
 
 [node name="SingleSlidingDoor" type="Node3D"]
 script = ExtResource("1_ab2ji")

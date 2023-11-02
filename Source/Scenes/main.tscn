@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://digj6b8qdthwy"]
+[gd_scene load_steps=14 format=3 uid="uid://digj6b8qdthwy"]
 
 [ext_resource type="PackedScene" uid="uid://nlunx2l6yljq" path="res://Source/Player/player.tscn" id="1_81ddj"]
 [ext_resource type="PackedScene" uid="uid://dp1t241lrhnv5" path="res://Source/InteractionSystem/Interactables/red_button.tscn" id="2_1eumm"]
 [ext_resource type="PackedScene" uid="uid://cfrw3xv7rbsrs" path="res://Source/InteractionSystem/Interactables/single_sliding_door.tscn" id="3_mhabg"]
+[ext_resource type="PackedScene" uid="uid://bba7qvagkgp3o" path="res://Source/InteractionSystem/Interactables/single_door.tscn" id="4_pyt6t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ehoi3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -148,13 +149,16 @@ shape = SubResource("ConcavePolygonShape3D_tirqu")
 [node name="Interactables" type="Node" parent="."]
 
 [node name="RedButton" parent="Interactables" instance=ExtResource("2_1eumm")]
-transform = Transform3D(1, 0, 4.37114e-08, 0, 1, 0, -4.37114e-08, 0, 1, -6.83882, 2, -6.38211)
+transform = Transform3D(1, 0, 4.37114e-08, 0, 1, 0, -4.37114e-08, 0, 1, -6.93984, 2, -6.48771)
 
 [node name="RedButton2" parent="Interactables" instance=ExtResource("2_1eumm")]
-transform = Transform3D(-1, 0, -1.31134e-07, 0, 1, 0, 1.31134e-07, 0, -1, -7.07406, 2, -3.38211)
+transform = Transform3D(-1, 0, -1.31134e-07, 0, 1, 0, 1.31134e-07, 0, -1, -7.17508, 2, -3.48771)
 
 [node name="SingleSlidingDoor" parent="." instance=ExtResource("3_mhabg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89898, 0.0499997, -4.89514)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0499997, -5.00074)
+
+[node name="SingleDoor" parent="." instance=ExtResource("4_pyt6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1)
 
 [connection signal="Action" from="Interactables/RedButton" to="SingleSlidingDoor" method="toggle_door"]
 [connection signal="Action" from="Interactables/RedButton2" to="SingleSlidingDoor" method="toggle_door"]
