@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://nlunx2l6yljq"]
+
+[ext_resource type="Script" path="res://Source/Player/player.gd" id="1_n7r57"]
+[ext_resource type="Script" path="res://Source/Scripts/Motion.gd" id="2_7p1od"]
+[ext_resource type="AudioStream" uid="uid://bswq5ifcck45k" path="res://Source/Assets/Audio/Footsteps/Stone/step_1.wav" id="3_nsehx"]
+[ext_resource type="AudioStream" uid="uid://c44cfvjtv8lpv" path="res://Source/Assets/Audio/Footsteps/Stone/step_2.wav" id="4_aij8x"]
+[ext_resource type="AudioStream" uid="uid://bfmtp3yrkrawm" path="res://Source/Assets/Audio/Footsteps/Stone/step_3.wav" id="5_qh83s"]
+[ext_resource type="PackedScene" uid="uid://6kp4uco1407e" path="res://Source/UserInterface/user_interface.tscn" id="6_ej6aq"]
+[ext_resource type="Script" path="res://Source/InteractionSystem/InteractionSystem.gd" id="7_0wa71"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0b3bm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vkl1l"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Head", "CameraSocket")]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_n7r57")
+sensitivity = 0.001
+Head = NodePath("Head")
+CameraSocket = NodePath("Head/CameraSocket")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_0b3bm")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CameraSocket" type="Node3D" parent="Head"]
+
+[node name="Camera3D" type="Camera3D" parent="Head/CameraSocket"]
+
+[node name="Marker3D" type="Marker3D" parent="Head/CameraSocket"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+
+[node name="Raycaster" type="RayCast3D" parent="Head/CameraSocket"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_vkl1l")
+
+[node name="MotionNode" type="Node" parent="." node_paths=PackedStringArray("Camera", "Marker", "Player", "feet_audio_player")]
+script = ExtResource("2_7p1od")
+Camera = NodePath("../Head/CameraSocket/Camera3D")
+Marker = NodePath("../Head/CameraSocket/Marker3D")
+Player = NodePath("..")
+feet_audio_player = NodePath("../FeetAudioEmitter")
+footstep_sounds = Array[AudioStreamWAV]([ExtResource("3_nsehx"), ExtResource("4_aij8x"), ExtResource("5_qh83s")])
+
+[node name="FeetAudioEmitter" type="AudioStreamPlayer3D" parent="."]
+max_polyphony = 4
+
+[node name="UserInterface" parent="." instance=ExtResource("6_ej6aq")]
+
+[node name="InteractionSystem" type="Node" parent="." node_paths=PackedStringArray("Ray")]
+script = ExtResource("7_0wa71")
+Ray = NodePath("../Head/CameraSocket/Raycaster")

@@ -1,0 +1,160 @@
+[gd_scene load_steps=13 format=3 uid="uid://digj6b8qdthwy"]
+
+[ext_resource type="PackedScene" uid="uid://nlunx2l6yljq" path="res://Source/Player/player.tscn" id="1_81ddj"]
+[ext_resource type="PackedScene" uid="uid://dp1t241lrhnv5" path="res://Source/InteractionSystem/Interactables/red_button.tscn" id="2_1eumm"]
+[ext_resource type="PackedScene" uid="uid://cfrw3xv7rbsrs" path="res://Source/InteractionSystem/Interactables/single_sliding_door.tscn" id="3_mhabg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ehoi3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_n86mj"]
+sky_material = SubResource("ProceduralSkyMaterial_ehoi3")
+
+[sub_resource type="Environment" id="Environment_3lqou"]
+background_mode = 2
+sky = SubResource("Sky_n86mj")
+ambient_light_source = 2
+ambient_light_color = Color(0.501961, 0.529412, 0.784314, 1)
+tonemap_mode = 3
+ssil_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nbwro"]
+albedo_color = Color(0.564706, 0.588235, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_n184j"]
+material = SubResource("StandardMaterial3D_nbwro")
+size = Vector3(30, 0.1, 30)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fx07v"]
+data = PackedVector3Array(-15, 0.05, 15, 15, 0.05, 15, -15, -0.05, 15, 15, 0.05, 15, 15, -0.05, 15, -15, -0.05, 15, 15, 0.05, -15, -15, 0.05, -15, 15, -0.05, -15, -15, 0.05, -15, -15, -0.05, -15, 15, -0.05, -15, 15, 0.05, 15, 15, 0.05, -15, 15, -0.05, 15, 15, 0.05, -15, 15, -0.05, -15, 15, -0.05, 15, -15, 0.05, -15, -15, 0.05, 15, -15, -0.05, -15, -15, 0.05, 15, -15, -0.05, 15, -15, -0.05, -15, 15, 0.05, 15, -15, 0.05, 15, 15, 0.05, -15, -15, 0.05, 15, -15, 0.05, -15, 15, 0.05, -15, -15, -0.05, 15, 15, -0.05, 15, -15, -0.05, -15, 15, -0.05, 15, 15, -0.05, -15, -15, -0.05, -15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ew10g"]
+albedo_color = Color(0.776471, 0.796078, 0.92549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_71wwr"]
+material = SubResource("StandardMaterial3D_ew10g")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tirqu"]
+data = PackedVector3Array(-1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3lqou")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 5, 0)
+light_color = Color(0.776471, 0.796078, 0.92549, 1)
+shadow_enabled = true
+shadow_opacity = 0.7
+sky_mode = 1
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_n184j")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fx07v")
+
+[node name="Player" parent="." instance=ExtResource("1_81ddj")]
+
+[node name="FloatingCubesGroup" type="Node" parent="."]
+
+[node name="FloatingCubes" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, -8)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes2" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3, -10)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes3" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -10)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes4" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 5)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes5" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 5)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes5/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes6" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes6/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes7" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3, 10)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes7/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="FloatingCubes8" type="MeshInstance3D" parent="FloatingCubesGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 3, 10)
+mesh = SubResource("BoxMesh_71wwr")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloatingCubesGroup/FloatingCubes8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloatingCubesGroup/FloatingCubes8/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tirqu")
+
+[node name="Interactables" type="Node" parent="."]
+
+[node name="RedButton" parent="Interactables" instance=ExtResource("2_1eumm")]
+transform = Transform3D(1, 0, 4.37114e-08, 0, 1, 0, -4.37114e-08, 0, 1, -6.83882, 2, -6.38211)
+
+[node name="RedButton2" parent="Interactables" instance=ExtResource("2_1eumm")]
+transform = Transform3D(-1, 0, -1.31134e-07, 0, 1, 0, 1.31134e-07, 0, -1, -7.07406, 2, -3.38211)
+
+[node name="SingleSlidingDoor" parent="." instance=ExtResource("3_mhabg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89898, 0.0499997, -4.89514)
+
+[connection signal="Action" from="Interactables/RedButton" to="SingleSlidingDoor" method="toggle_door"]
+[connection signal="Action" from="Interactables/RedButton2" to="SingleSlidingDoor" method="toggle_door"]

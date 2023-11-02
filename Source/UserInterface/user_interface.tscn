@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://6kp4uco1407e"]
+
+[ext_resource type="Script" path="res://Source/UserInterface/user_interface.gd" id="1_8kua7"]
+[ext_resource type="Theme" uid="uid://c7toxrmx8axuu" path="res://Source/Assets/Themes/UI Theme.tres" id="1_gqac6"]
+[ext_resource type="FontFile" uid="uid://gt8kp0xj1grb" path="res://Source/Assets/Fonts/Oxygen/Oxygen-Light.ttf" id="2_c0ukc"]
+[ext_resource type="FontFile" uid="uid://73fx2i1bpdha" path="res://Source/Assets/Fonts/Oxygen/Oxygen-Bold.ttf" id="2_tlytk"]
+[ext_resource type="Script" path="res://Source/InteractionSystem/ButtonIndicator.gd" id="5_8h645"]
+
+[node name="UserInterface" type="Control" node_paths=PackedStringArray("InteractionViewport")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_8kua7")
+InteractionViewport = NodePath("InteractionMessage")
+
+[node name="InteractionMessage" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+use_taa = true
+gui_disable_input = true
+gui_snap_controls_to_pixels = false
+size = Vector2i(301, 73)
+script = ExtResource("5_8h645")
+
+[node name="PromptPanel" type="PanelContainer" parent="InteractionMessage"]
+custom_minimum_size = Vector2(300, 0)
+offset_right = 300.0
+offset_bottom = 73.0
+mouse_filter = 2
+theme = ExtResource("1_gqac6")
+
+[node name="MarginContainer" type="MarginContainer" parent="InteractionMessage/PromptPanel"]
+layout_mode = 2
+theme = ExtResource("1_gqac6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InteractionMessage/PromptPanel/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_gqac6")
+
+[node name="Panel" type="Panel" parent="InteractionMessage/PromptPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 2
+theme = ExtResource("1_gqac6")
+
+[node name="Input" type="Label" parent="InteractionMessage/PromptPanel/MarginContainer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gqac6")
+theme_override_font_sizes/font_size = 67
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InteractionMessage/PromptPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_gqac6")
+alignment = 1
+
+[node name="Default" type="Label" parent="InteractionMessage/PromptPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_gqac6")
+theme_override_fonts/font = ExtResource("2_c0ukc")
+theme_override_font_sizes/font_size = 18
+text = "PRESS TO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Prompt" type="Label" parent="InteractionMessage/PromptPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_gqac6")
+theme_override_fonts/font = ExtResource("2_tlytk")
+theme_override_font_sizes/font_size = 25
+text = "INTERACT"
+horizontal_alignment = 1

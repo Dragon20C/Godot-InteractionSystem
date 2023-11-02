@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://c7toxrmx8axuu"]
+
+[ext_resource type="FontFile" uid="uid://bo1chm83tegpu" path="res://Source/Assets/Fonts/Oxygen/Oxygen-Regular.ttf" id="1_ykcmq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64wu4"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 0.392157)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 10
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u1q6h"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 0.392157)
+border_width_left = 6
+border_color = Color(1, 1, 1, 1)
+
+[resource]
+default_font = ExtResource("1_ykcmq")
+default_font_size = 18
+HBoxContainer/constants/separation = 46
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+Panel/styles/panel = SubResource("StyleBoxFlat_64wu4")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_u1q6h")
+VBoxContainer/constants/separation = -5
